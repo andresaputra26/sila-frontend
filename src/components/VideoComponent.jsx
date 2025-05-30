@@ -1,0 +1,175 @@
+import React, { useRef, useState, useEffect } from "react";
+import { Hands } from "@mediapipe/hands";
+import {
+  drawConnectors,
+  drawLandmarks,
+  HAND_CONNECTIONS,
+} from "@mediapipe/drawing_utils";
+
+const VideoComponent = ({ onNowResult, onOutputResult }) => {
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const handsRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  const [videoFile, setVideoFile] = useState(null);
+
+  const lastGestureRef = useRef("");
+  const gestureStartTime = useRef(null);
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const videoURL = URL.createObjectURL(file);
+      setVideoFile(videoURL);
+      lastGestureRef.current = "";
+      gestureStartTime.current = null;
+    }
+  };
+
+  const triggerFileSelect = () => {
+    fileInputRef.current.click();
+  };
+
+  useEffect(() => {
+    const hands = new Hands({
+      locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+    });
+
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 0,
+      minDetectionConfidence: 0.6,
+      minTrackingConfidence: 0.5,
+    });
+
+    hands.onResults(async (results) => {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext("2d");
+      if (!ctx) return;
+
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (results.multiHandLandmarks?.length > 0) {
+        const landmarks = results.multiHandLandmarks[0]
+          .flatMap((pt) => [pt.x, pt.y])
+          .slice(0, 42);
+
+        drawConnectors(ctx, results.multiHandLandmarks[0], HAND_CONNECTIONS, {
+          color: "#00FF00",
+          lineWidth: 2,
+        });
+        drawLandmarks(ctx, results.multiHandLandmarks[0], {
+          color: "#FF0000",
+          radius: 3,
+        });
+
+        try {
+          const res = await fetch("http://localhost:8000/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ landmarks }),
+          });
+          const data = await res.json();
+          const label = data.label;
+          const confidence = data.confidence;
+
+          if (label && typeof confidence === "number") {
+            onNowResult(`${label} (${(confidence * 100).toFixed(2)}%)`);
+
+            if (label !== lastGestureRef.current) {
+              lastGestureRef.current = label;
+              gestureStartTime.current = Date.now();
+            } else if (Date.now() - gestureStartTime.current >= 2000) {
+              onOutputResult(label);
+              gestureStartTime.current = Date.now(); // reset
+            }
+          }
+        } catch (err) {
+          console.error("Prediction error:", err);
+        }
+      } else {
+        onNowResult("No hand");
+        lastGestureRef.current = "";
+        gestureStartTime.current = null;
+      }
+
+      ctx.restore();
+    });
+
+    handsRef.current = hands;
+  }, [onNowResult, onOutputResult]);
+
+  useEffect(() => {
+    const processFrame = async () => {
+      const video = videoRef.current;
+      if (
+        video &&
+        handsRef.current &&
+        !video.paused &&
+        !video.ended &&
+        video.readyState >= 2
+      ) {
+        await handsRef.current.send({ image: video });
+        requestAnimationFrame(processFrame);
+      }
+    };
+
+    if (videoFile && videoRef.current) {
+      videoRef.current.addEventListener("play", () => {
+        requestAnimationFrame(processFrame);
+      });
+    }
+  }, [videoFile]);
+
+  return (
+    <div>
+      <div style={{ marginBottom: "12px" }}>
+        <input
+          type="file"
+          accept="video/*"
+          ref={fileInputRef}
+          onChange={handleFileSelect}
+          style={{ display: "none" }}
+        />
+        <button className="start" onClick={triggerFileSelect}>
+          Select Video
+        </button>
+      </div>
+
+      <div style={{ position: "relative", width: 640, height: 480 }}>
+        <video
+          ref={videoRef}
+          src={videoFile}
+          controls
+          width={640}
+          height={480}
+          style={{
+            borderRadius: "12px",
+            position: "absolute",
+            zIndex: 1,
+            objectFit: "cover",
+            backgroundColor: "#000",
+          }}
+        />
+        <canvas
+          ref={canvasRef}
+          width={640}
+          height={480}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            borderRadius: "12px",
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default VideoComponent;
