@@ -7,6 +7,9 @@ import {
   HAND_CONNECTIONS,
 } from "@mediapipe/drawing_utils";
 
+// ✅ Ganti URL ini dengan domain backend kamu
+const API_URL = "https://silaapi-production.up.railway.app/predict";
+
 const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -24,7 +27,7 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
     lastSentRef.current = now;
 
     try {
-      const res = await fetch("http://localhost:8000/predict", {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ landmarks }),
@@ -37,7 +40,6 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
       onNowResult(`${label} (${(confidence * 100).toFixed(2)}%)`);
 
       // Stabilization logic
-      const now = Date.now();
       if (label === currentLabelRef.current) {
         if (!stableStartRef.current) stableStartRef.current = now;
         const elapsed = now - stableStartRef.current;
@@ -46,7 +48,7 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
           onOutputResult(label);
           hasOutputRef.current = true;
 
-          // reset for next gesture
+          // reset state
           stableStartRef.current = null;
           hasOutputRef.current = false;
           currentLabelRef.current = null;
@@ -100,7 +102,7 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
 
         sendToFastAPI(flatLandmarks);
       } else {
-        onNowResult("");
+        onNowResult("No hand");
         currentLabelRef.current = null;
         stableStartRef.current = null;
         hasOutputRef.current = false;
