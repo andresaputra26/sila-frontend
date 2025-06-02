@@ -3,8 +3,8 @@ import { Container, Row, Col, Tabs, Tab, Card } from 'react-bootstrap';
 import HeroImage from '../assets/images/sila-hero.png';
 import { premiumFeatures } from '../data/index';
 import { FaHandPaper, FaVideo } from 'react-icons/fa';
-import GestureComponent from '../components/GestureComponent';
-import VideoComponent from '../components/VideoComponent';
+import GestureTutorial from '../components/GestureTutorial';
+import VideoTutorial from '../components/VideoTutorial';
 
 const HomePage = () => {
   return (
@@ -75,7 +75,7 @@ const HomePage = () => {
                             </span>
                         }>
                             {/* <Card body className='fade-up'> */}
-                                <GestureComponent />
+                                <GestureTutorial />
                             {/* </Card> */}
                         </Tab>
 
@@ -86,7 +86,7 @@ const HomePage = () => {
                             </span>
                         }>
                             {/* <Card body className='fade-up'> */}
-                                <VideoComponent />
+                                <VideoTutorial />
                             {/* </Card> */}
                         </Tab>
                     </Tabs>
