@@ -1,10 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Tabs, Tab, Card } from 'react-bootstrap';
 import HeroImage from '../assets/images/sila-hero.png';
-import { premiumFeatures } from '../data/index';
+import { premiumFeatures, dataSwiper } from '../data/index';
 import { FaHandPaper, FaVideo } from 'react-icons/fa';
 import GestureTutorial from '../components/GestureTutorial';
 import VideoTutorial from '../components/VideoTutorial';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+// import required modules
+import { Pagination } from 'swiper/modules';
 
 const HomePage = () => {
   return (
@@ -90,6 +99,79 @@ const HomePage = () => {
                             {/* </Card> */}
                         </Tab>
                     </Tabs>
+                </Row>
+            </Container>
+        </div>
+        <div className="testimonial py-5">
+            <Container>
+                <Row>
+                    <Col>
+                        <h1 className='text-center fw-bold my-5'>See Why People Love SiLa</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    <Swiper
+                        slidesPerView={1}
+                        spaceBetween={10}
+                        pagination={{
+                        clickable: true,
+                        }}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 1,
+                                spaceBetween: 20,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 40,
+                            },
+                            992: {
+                                slidesPerView: 2,
+                                spaceBetween: 50,
+                            },
+                            1200: {
+                                slidesPerView: 3,
+                                spaceBetween: 50,
+                            },
+                        }}
+                        modules={[Pagination]}
+                        className="mySwiper"
+                    >
+                        {dataSwiper.map((data) => {
+                            return <SwiperSlide key={data.id} className='shadow-sm'>
+                                <p className='desc'>{data.desc}</p>
+                                <div className='people'>
+                                    <img src={data.image} alt="User Profile Testimonial" />
+                                    <div>
+                                        <h5 className='mb-1'>{data.name}</h5>
+                                        <i className={data.star1}></i>
+                                        <i className={data.star2}></i>
+                                        <i className={data.star3}></i>
+                                        <i className={data.star4}></i>
+                                        <i className={data.star5}></i>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        })}
+                    </Swiper>
+                </Row>
+                <Row>
+                    <Col md={{ span: 8, offset: 2 }}>
+                        <h2 className="text-center fw-bold mb-4">Leave Your Feedback</h2>
+                        <form className="testimonial-form p-4 shadow-sm rounded">
+                        <div className="mb-3">
+                            <label htmlFor="name" className="form-label">Your Name</label>
+                            <input type="text" className="form-control" id="name" placeholder="Enter your name" required />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="feedback" className="form-label">Your Feedback</label>
+                            <textarea className="form-control" id="feedback" rows="4" placeholder="Share your experience..." required></textarea>
+                        </div>
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-primary px-4">Submit</button>
+                        </div>
+                        </form>
+                    </Col>
                 </Row>
             </Container>
         </div>

@@ -6,6 +6,10 @@ import FeatureImage4 from '../assets/images/features/lightning-svgrepo-com.svg';
 import MembersImg1 from '../assets/images/members/man-avatar-icon.jpg';
 import MembersImg2 from '../assets/images/members/female-avatar-icon.jpg';
 
+import People1 from '../assets/images/testimonial/people-1.jpg';
+import People2 from '../assets/images/testimonial/people-2.jpg';
+import People3 from '../assets/images/testimonial/people-3.jpg';
+
 export const navLinks = [
     {
         id: 1,
@@ -98,3 +102,72 @@ export const teamMembers = [
         image: MembersImg2,
     },
 ]
+
+export const dataSwiper = [
+    {
+        id: 1,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People1,
+        name: "People 1",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+    {
+        id: 2,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People2,
+        name: "People 2",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+    {
+        id: 3,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People3,
+        name: "People 3",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+    {
+        id: 4,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People1,
+        name: "People 4",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+    {
+        id: 5,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People2,
+        name: "People 5",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+    {
+        id: 6,
+        desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, saepe a. Quod eos non, dolores sapiente dicta quam esse reprehenderit explicabo vitae nesciunt ut laborum harum, vel optio corporis voluptatem?",
+        image: People3,
+        name: "People 6",
+        star1: "fa-solid fa-star",
+        star2: "fa-solid fa-star",
+        star3: "fa-solid fa-star",
+        star4: "fa-solid fa-star",
+        star5: "fa-solid fa-star",
+    },
+];

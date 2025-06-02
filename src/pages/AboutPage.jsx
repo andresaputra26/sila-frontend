@@ -85,21 +85,7 @@ const AboutPage = () => {
                         <h5>Language Settings</h5>
                         <p>You can customize which sign languages are supported in your translation:</p>
                         <ul>
-                            <li>American Sign Language (ASL)</li>
-                            <li>British Sign Language (BSL)</li>
-                            <li>Australian Sign Language (Auslan)</li>
-                            <li>And many more...</li>
-                        </ul>
-
-                        <h5>Account Settings</h5>
-                        <p>Create an account to save your translation history and access your settings across devices.</p>
-
-                        <h5>Privacy Settings</h5>
-                        <p>Control how your data is used and stored:</p>
-                        <ul>
-                            <li>Choose whether to save translation history</li>
-                            <li>Manage camera permissions</li>
-                            <li>Control data sharing for service improvement</li>
+                            <li>Sistem Isyarat Bahasa Indonesia (SIBI)</li>
                         </ul>
                     </Card>
                 </Tab>

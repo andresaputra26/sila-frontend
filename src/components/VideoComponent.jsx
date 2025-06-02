@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { FaVideo } from 'react-icons/fa'
 import { Hands } from "@mediapipe/hands";
 import {
   drawConnectors,
@@ -126,19 +127,6 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
 
   return (
     <div>
-      <div style={{ marginBottom: "12px" }}>
-        <input
-          type="file"
-          accept="video/*"
-          ref={fileInputRef}
-          onChange={handleFileSelect}
-          style={{ display: "none" }}
-        />
-        <button className="start" onClick={triggerFileSelect}>
-          Select Video
-        </button>
-      </div>
-
       <div style={{ position: "relative", width: 640, height: 480 }}>
         <video
           ref={videoRef}
@@ -167,6 +155,19 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
             pointerEvents: "none",
           }}
         />
+      </div>
+
+      <div style={{ marginTop: '1rem', marginBottom: '6rem', display: 'flex', justifyContent: 'center' }}>
+        <input
+          type="file"
+          accept="video/*"
+          ref={fileInputRef}
+          onChange={handleFileSelect}
+          style={{ display: "none" }}
+        />
+        <button className="start" onClick={triggerFileSelect}>
+          <FaVideo /> Select Video
+        </button>
       </div>
     </div>
   );
