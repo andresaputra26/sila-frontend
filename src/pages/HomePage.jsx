@@ -58,6 +58,41 @@ const HomePage = () => {
                 </Row>
             </Container>
         </div>
+        <div id='guide' className='guide w-100 min-vh-100'>
+            <Container>
+                <Row>
+                    <Col>
+                        <h1 className='text-center fw-bold'>Just 5 Simple Steps</h1>
+                        <p className='text-center'>Getting started is easy! Just follow these five steps to translate sign language using either your camera or uploaded videos.</p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Tabs defaultActiveKey="gesture-translation" id="justify-tab-example" className="mb-3" justify>
+                        <Tab eventKey="gesture-translation" title={
+                            <span>
+                                <FaHandPaper className='me-2' />
+                                Gesture Translation
+                            </span>
+                        }>
+                            {/* <Card body className='fade-up'> */}
+                                <GestureComponent />
+                            {/* </Card> */}
+                        </Tab>
+
+                        <Tab eventKey="video-translation" title={
+                            <span>
+                                <FaVideo className='me-2' />
+                                Video Translation
+                            </span>
+                        }>
+                            {/* <Card body className='fade-up'> */}
+                                <VideoComponent />
+                            {/* </Card> */}
+                        </Tab>
+                    </Tabs>
+                </Row>
+            </Container>
+        </div>
     </div>
   );
 };
