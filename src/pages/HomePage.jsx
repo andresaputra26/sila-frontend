@@ -189,4 +189,4 @@ import { submitFeedback } from '../api/feedbackApi';
   );
 };
 
-export default HomePage
+export default HomePage;
