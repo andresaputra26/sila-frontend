@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Tabs, Tab, Card } from 'react-bootstrap';
-import HeroImage from '../assets/images/sila-hero.png';
-import { premiumFeatures, dataSwiper } from '../data/index';
 import { FaHandPaper, FaVideo, FaStar } from 'react-icons/fa';
-import GestureTutorial from '../components/GestureTutorial';
-import VideoTutorial from '../components/VideoTutorial';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
+
+import HeroImage from '../assets/images/sila-hero.png';
+import GestureTutorial from '../components/GestureTutorial';
+import VideoTutorial from '../components/VideoTutorial';
+import { premiumFeatures, dataSwiper } from '../data/index';
 import { submitFeedback } from '../api/feedbackApi';
 
 const HomePage = () => {
@@ -19,11 +20,10 @@ const HomePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const name = e.target.name.value;
     const feedback = e.target.feedback.value;
 
     try {
-      await submitFeedback({ name, feedback, rating });
+      await submitFeedback({ feedback, rating });
       e.target.reset();
       setRating(0);
       setShowModal(true);
@@ -67,7 +67,7 @@ const HomePage = () => {
             {premiumFeatures.map((feature) => (
               <Col key={feature.id} md={3} className='mb-4'>
                 <Card className='card-custom'>
-                  <Card.Img variant="top" src={feature.image} alt="svgrepo.com" />
+                  <Card.Img variant="top" src={feature.image} alt="feature" />
                   <Card.Body>
                     <Card.Title>{feature.title}</Card.Title>
                     <Card.Text>{feature.text}</Card.Text>
@@ -88,7 +88,7 @@ const HomePage = () => {
             </Col>
           </Row>
           <Row>
-            <Tabs defaultActiveKey="gesture-translation" id="justify-tab-example" className="mb-3" justify>
+            <Tabs defaultActiveKey="gesture-translation" className="mb-3" justify>
               <Tab eventKey="gesture-translation" title={<span><FaHandPaper className='me-2' />Gesture Translation</span>}>
                 <GestureTutorial />
               </Tab>
@@ -125,14 +125,12 @@ const HomePage = () => {
                 <SwiperSlide key={data.id} className='shadow-sm'>
                   <p className='desc'>{data.desc}</p>
                   <div className='people'>
-                    <img src={data.image} alt="User Profile Testimonial" />
+                    <img src={data.image} alt="User" />
                     <div>
                       <h5 className='mb-1'>{data.name}</h5>
-                      <i className={data.star1}></i>
-                      <i className={data.star2}></i>
-                      <i className={data.star3}></i>
-                      <i className={data.star4}></i>
-                      <i className={data.star5}></i>
+                      {[1, 2, 3, 4, 5].map((i) => (
+                        <i key={i} className={data[`star${i}`]}></i>
+                      ))}
                     </div>
                   </div>
                 </SwiperSlide>
@@ -144,10 +142,6 @@ const HomePage = () => {
             <Col md={{ span: 8, offset: 2 }}>
               <h2 className="text-center fw-bold mb-4">Leave Your Feedback</h2>
               <form className="testimonial-form p-4 shadow-sm rounded" onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">Your Name</label>
-                  <input type="text" className="form-control" id="name" name="name" placeholder="Enter your name" required />
-                </div>
                 <div className="mb-3">
                   <label htmlFor="feedback" className="form-label">Your Feedback</label>
                   <textarea className="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience..." required></textarea>
