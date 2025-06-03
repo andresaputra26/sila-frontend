@@ -30,6 +30,29 @@ const HomePage = () => {
       console.error('Error:', err);
       alert('Failed to submit feedback.');
     }
+
+    fetch('https://api.sheetbest.com/sheets/b7dbf6d5-3a56-4566-98e3-ec3210f0f13b', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        feedback: feedback,
+        rating: rating,
+        timestamp: new Date().toISOString()
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Success:', data);
+        e.target.reset();
+        setRating(0);
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('Failed to submit feedback.');
+      });
   };
 
   return (
@@ -151,7 +174,7 @@ const HomePage = () => {
                   <label htmlFor="feedback" className="form-label">Your Feedback</label>
                   <textarea className="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience..." required></textarea>
                 </div>
-                <div className="mb-3 text-center">
+                <div className="mb-3">
                   <label className="form-label d-block">Your Rating</label>
                   {[...Array(5)].map((_, index) => {
                     const currentRating = index + 1;
@@ -182,6 +205,8 @@ const HomePage = () => {
               </form>
             </Col>
           </Row>
+          
+
         </Container>
       </div>
     </div>
