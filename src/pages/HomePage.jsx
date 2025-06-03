@@ -187,6 +187,6 @@ import { submitFeedback } from '../api/feedbackApi';
       </div>
     </div>
   );
-}
+};
 
-export default HomePage;
+export default HomePage
