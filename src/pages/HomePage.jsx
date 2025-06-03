@@ -15,6 +15,31 @@ const HomePage = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const feedback = e.target.feedback.value;
+
+    fetch('https://script.google.com/macros/s/AKfycbyge1YqWp9k7MALpJvCXkardDIYo_AARyLp6OMYlBjKtazcPCRhDfAJVlVepY5Ew3En/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, feedback, rating })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Success:', data);
+        alert('Thank you for your feedback!');
+        e.target.reset();
+        setRating(0);
+      })
+      .catch(err => {
+        console.error('Error:', err);
+        alert('Failed to submit feedback.');
+      });
+  };
+
   return (
     <div className='homepage'>
       <header className='w-100 min-vh-100 d-flex align-items-center'>
@@ -125,17 +150,7 @@ const HomePage = () => {
           <Row>
             <Col md={{ span: 8, offset: 2 }}>
               <h2 className="text-center fw-bold mb-4">Leave Your Feedback</h2>
-              <form
-                className="testimonial-form p-4 shadow-sm rounded"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const name = e.target.name.value;
-                  const feedback = e.target.feedback.value;
-                  console.log({ name, feedback, rating });
-                  e.target.reset();
-                  setRating(0);
-                }}
-              >
+              <form className="testimonial-form p-4 shadow-sm rounded" onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">Your Name</label>
                   <input type="text" className="form-control" id="name" name="name" placeholder="Enter your name" required />
