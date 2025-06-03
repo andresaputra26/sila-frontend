@@ -20,12 +20,17 @@ const HomePage = () => {
     const name = e.target.name.value;
     const feedback = e.target.feedback.value;
 
-    fetch('https://script.google.com/macros/s/AKfycbyge1YqWp9k7MALpJvCXkardDIYo_AARyLp6OMYlBjKtazcPCRhDfAJVlVepY5Ew3En/exec', {
+    fetch('https://api.sheetbest.com/sheets/b7dbf6d5-3a56-4566-98e3-ec3210f0f13b', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name, feedback, rating })
+      body: JSON.stringify({
+        name: name,
+        feedback: feedback,
+        rating: rating,
+        timestamp: new Date().toISOString()
+      })
     })
       .then(res => res.json())
       .then(data => {
@@ -159,7 +164,7 @@ const HomePage = () => {
                   <label htmlFor="feedback" className="form-label">Your Feedback</label>
                   <textarea className="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience..." required></textarea>
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 text-center">
                   <label className="form-label d-block">Your Rating</label>
                   {[...Array(5)].map((_, index) => {
                     const currentRating = index + 1;
