@@ -24,13 +24,15 @@ const HomePage = () => {
 
     try {
       await submitFeedback({ name, feedback, rating });
-      alert('Thank you for your feedback!');
       e.target.reset();
       setRating(0);
+      setShowModal(true);
     } catch (err) {
       console.error('Error:', err);
       alert('Failed to submit feedback.');
     }
+  };
+
   return (
     <div className='homepage'>
       <header className='w-100 min-vh-100 d-flex align-items-center'>
@@ -150,7 +152,7 @@ const HomePage = () => {
                   <label htmlFor="feedback" className="form-label">Your Feedback</label>
                   <textarea className="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience..." required></textarea>
                 </div>
-                <div className="mb-3">
+                <div className="mb-3 text-center">
                   <label className="form-label d-block">Your Rating</label>
                   {[...Array(5)].map((_, index) => {
                     const currentRating = index + 1;
@@ -181,26 +183,27 @@ const HomePage = () => {
               </form>
             </Col>
           </Row>
+
           {showModal && (
-              <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                <div className="modal-dialog modal-dialog-centered">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title">Feedback Received</h5>
-                      <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-                    </div>
-                    <div className="modal-body">
-                      <p>Thank you for your feedback!</p>
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-primary" onClick={() => setShowModal(false)}>
-                        OK
-                      </button>
-                    </div>
+            <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Feedback Received</h5>
+                    <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+                  </div>
+                  <div className="modal-body">
+                    <p>Thank you for your feedback!</p>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" onClick={() => setShowModal(false)}>
+                      OK
+                    </button>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
+          )}
         </Container>
       </div>
     </div>
