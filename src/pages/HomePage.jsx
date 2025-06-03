@@ -159,7 +159,7 @@ const HomePage = () => {
                   <label htmlFor="feedback" className="form-label">Your Feedback</label>
                   <textarea className="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience..." required></textarea>
                 </div>
-                <div className="mb-3 text-center">
+                <div className="mb-3">
                   <label className="form-label d-block">Your Rating</label>
                   {[...Array(5)].map((_, index) => {
                     const currentRating = index + 1;
