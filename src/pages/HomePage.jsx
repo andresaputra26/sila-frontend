@@ -11,28 +11,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { submitFeedback } from '../api/feedbackApi';
-
-const HomePage = () => {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const feedback = e.target.feedback.value;
-
-    try {
-      await submitFeedback({ name, feedback, rating });
-      e.target.reset();
-      setRating(0);
-      setShowModal(true);
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Failed to submit feedback.');
-    }
-  };
-
   return (
     <div className='homepage'>
       <header className='w-100 min-vh-100 d-flex align-items-center'>
