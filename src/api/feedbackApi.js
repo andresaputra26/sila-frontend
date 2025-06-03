@@ -1,18 +1,8 @@
-/**
- * Submit feedback to Sheet.best endpoint.
- * @param {Object} data - The feedback data.
- * @param {string} data.feedback - The feedback message.
- * @param {number} data.rating - The user rating (1-5).
- * @returns {Promise<Object>} The response from Sheet.best.
- */
 export async function submitFeedback({ feedback, rating }) {
   const endpoint = 'https://api.sheetbest.com/sheets/b7dbf6d5-3a56-4566-98e3-ec3210f0f13b';
 
-  let name = localStorage.getItem("user_id");
-  if (!name) {
-    name = `user${Math.floor(1000 + Math.random() * 9000)}`;
-    localStorage.setItem("user_id", name);
-  }
+  // generate new user ID every time
+  const name = `user${Math.floor(1000 + Math.random() * 9000)}`;
 
   const body = {
     name,
