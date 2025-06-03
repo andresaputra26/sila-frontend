@@ -7,6 +7,9 @@ import {
   HAND_CONNECTIONS,
 } from "@mediapipe/drawing_utils";
 
+// ✅ Ganti URL ke domain hosting backend kamu
+const API_URL = "https://sila-backend-production.up.railway.app/predict";
+
 const VideoComponent = ({ onNowResult, onOutputResult }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -25,6 +28,11 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
       setVideoFile(videoURL);
       lastGestureRef.current = "";
       gestureStartTime.current = null;
+
+      // Clear canvas & label
+      const ctx = canvasRef.current?.getContext("2d");
+      if (ctx) ctx.clearRect(0, 0, 640, 480);
+      onNowResult("No hand");
     }
   };
 
@@ -54,25 +62,27 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (results.multiHandLandmarks?.length > 0) {
-        const landmarks = results.multiHandLandmarks[0]
+        const fullLandmarks = results.multiHandLandmarks[0];
+        const flatLandmarks = fullLandmarks
           .flatMap((pt) => [pt.x, pt.y])
-          .slice(0, 42);
+          .slice(0, 42); // hanya ambil x,y
 
-        drawConnectors(ctx, results.multiHandLandmarks[0], HAND_CONNECTIONS, {
+        drawConnectors(ctx, fullLandmarks, HAND_CONNECTIONS, {
           color: "#00FF00",
           lineWidth: 2,
         });
-        drawLandmarks(ctx, results.multiHandLandmarks[0], {
+        drawLandmarks(ctx, fullLandmarks, {
           color: "#FF0000",
           radius: 3,
         });
 
         try {
-          const res = await fetch("http://localhost:8000/predict", {
+          const res = await fetch(API_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ landmarks }),
+            body: JSON.stringify({ landmarks: flatLandmarks }),
           });
+
           const data = await res.json();
           const label = data.label;
           const confidence = data.confidence;
@@ -80,12 +90,17 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
           if (label && typeof confidence === "number") {
             onNowResult(`${label} (${(confidence * 100).toFixed(2)}%)`);
 
-            if (label !== lastGestureRef.current) {
+            if (label === lastGestureRef.current) {
+              if (!gestureStartTime.current) gestureStartTime.current = Date.now();
+
+              const elapsed = Date.now() - gestureStartTime.current;
+              if (elapsed >= 5000) {
+                onOutputResult(label);
+                gestureStartTime.current = null;
+              }
+            } else {
               lastGestureRef.current = label;
               gestureStartTime.current = Date.now();
-            } else if (Date.now() - gestureStartTime.current >= 2000) {
-              onOutputResult(label);
-              gestureStartTime.current = Date.now(); // reset
             }
           }
         } catch (err) {
