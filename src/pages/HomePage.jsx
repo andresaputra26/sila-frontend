@@ -15,6 +15,7 @@ import { submitFeedback } from '../api/feedbackApi';
 const HomePage = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +47,7 @@ const HomePage = () => {
       .then(res => res.json())
       .then(data => {
         console.log('Success:', data);
+        setShowModal(true);
         e.target.reset();
         setRating(0);
       })
@@ -205,8 +207,26 @@ const HomePage = () => {
               </form>
             </Col>
           </Row>
-          
-
+          {showModal && (
+              <div className="modal fade show d-block" tabIndex="-1" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title">Feedback Received</h5>
+                      <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+                    </div>
+                    <div className="modal-body">
+                      <p>Thank you for your feedback!</p>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-primary" onClick={() => setShowModal(false)}>
+                        OK
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
         </Container>
       </div>
     </div>
