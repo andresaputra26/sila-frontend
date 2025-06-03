@@ -8,7 +8,7 @@ import {
 } from "@mediapipe/drawing_utils";
 
 // ✅ Ganti URL ini dengan domain backend kamu
-const API_URL = "https://silaapi-production.up.railway.app//predict";
+const API_URL = "https://silaapi-production.up.railway.app/predict";
 
 const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
   const webcamRef = useRef(null);
