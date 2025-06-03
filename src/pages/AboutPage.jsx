@@ -27,9 +27,6 @@ const AboutPage = () => {
                         <ul>
                             <li>Real-time gesture translation using your camera</li>
                             <li>Video translation for pre-recorded content</li>
-                            <li>Support for multiple sign languages</li>
-                            <li>Text-to-speech for translated content</li>
-                            <li>History of your translations</li>
                         </ul>
 
                         <h5>System Requirements</h5>
