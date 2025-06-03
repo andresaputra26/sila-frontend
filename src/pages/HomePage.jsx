@@ -1,5 +1,3 @@
-// src/pages/HomePage.jsx
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Tabs, Tab, Card } from 'react-bootstrap';
