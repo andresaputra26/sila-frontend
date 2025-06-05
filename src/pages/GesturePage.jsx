@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaCamera, FaStopCircle, FaTrashAlt } from 'react-icons/fa';
+import { FaCamera, FaStopCircle, FaTrashAlt, FaRegCopy } from 'react-icons/fa';
 import '../assets/css/main.css';
 import GestureComponent from '../components/GestureComponent';
 
@@ -11,6 +11,13 @@ function GesturePage() {
   const handleClearAll = () => {
     setTranslation('');
     setCurrentResult('');
+  };
+
+  const handleCopy = () => {
+    if (translation) {
+      navigator.clipboard.writeText(translation);
+      alert('Copied to clipboard!');
+    }
   };
 
   const handleNowResult = (result) => {
@@ -90,6 +97,9 @@ function GesturePage() {
           <div className="translation-actions">
             <button onClick={handleClearAll} title="Clear All">
               <FaTrashAlt />
+            </button>
+            <button onClick={handleCopy} title="Copy Output">
+              <FaRegCopy />
             </button>
           </div>
         </div>
