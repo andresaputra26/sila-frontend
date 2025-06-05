@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaRegCopy } from 'react-icons/fa';
 import '../assets/css/main.css';
 import VideoComponent from '../components/VideoComponent';
 
@@ -12,17 +12,30 @@ function VideoPage() {
     setTranslation('');
   };
 
+  const handleCopy = () => {
+    if (translation) {
+      navigator.clipboard.writeText(translation);
+      alert('Copied to clipboard!');
+    }
+  };
+
+  const handleNowResult = (res) => {
+    setCurrentResult(res);
+  };
+
+  const handleOutputResult = (label) => {
+    const outputChar = label === 'space' ? ' ' : label;
+    setTranslation((prev) => prev + outputChar);
+  };
+
   return (
     <div className="video-page min-vh-100">
       <div className="left-panel">
         <div className="main-content">
-
-          {/* VideoComponent sudah termasuk tombol upload */}
           <VideoComponent
-            onNowResult={(res) => setCurrentResult(res)}
-            onOutputResult={(char) => setTranslation((prev) => prev + char)}
+            onNowResult={handleNowResult}
+            onOutputResult={handleOutputResult}
           />
-
         </div>
       </div>
 
@@ -32,6 +45,9 @@ function VideoPage() {
           <div className="translation-actions">
             <button onClick={handleClearAll} title="Clear All">
               <FaTrashAlt />
+            </button>
+            <button onClick={handleCopy} title="Copy Output">
+              <FaRegCopy />
             </button>
           </div>
         </div>
