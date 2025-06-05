@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { FaVideo } from 'react-icons/fa'
+import { FaVideo } from "react-icons/fa";
 import { Hands } from "@mediapipe/hands";
 import {
   drawConnectors,
@@ -7,7 +7,6 @@ import {
   HAND_CONNECTIONS,
 } from "@mediapipe/drawing_utils";
 
-// ✅ Ganti URL ke domain hosting backend kamu
 const API_URL = "https://sila-backend-production.up.railway.app/predict";
 
 const VideoComponent = ({ onNowResult, onOutputResult }) => {
@@ -20,6 +19,7 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
 
   const lastGestureRef = useRef("");
   const gestureStartTime = useRef(null);
+  const hasOutputRef = useRef(false);
 
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -28,8 +28,8 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
       setVideoFile(videoURL);
       lastGestureRef.current = "";
       gestureStartTime.current = null;
+      hasOutputRef.current = false;
 
-      // Clear canvas & label
       const ctx = canvasRef.current?.getContext("2d");
       if (ctx) ctx.clearRect(0, 0, 640, 480);
       onNowResult("No hand");
@@ -65,7 +65,7 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
         const fullLandmarks = results.multiHandLandmarks[0];
         const flatLandmarks = fullLandmarks
           .flatMap((pt) => [pt.x, pt.y])
-          .slice(0, 42); // hanya ambil x,y
+          .slice(0, 42);
 
         drawConnectors(ctx, fullLandmarks, HAND_CONNECTIONS, {
           color: "#00FF00",
@@ -91,16 +91,19 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
             onNowResult(`${label} (${(confidence * 100).toFixed(2)}%)`);
 
             if (label === lastGestureRef.current) {
-              if (!gestureStartTime.current) gestureStartTime.current = Date.now();
+              if (!gestureStartTime.current)
+                gestureStartTime.current = Date.now();
 
               const elapsed = Date.now() - gestureStartTime.current;
-              if (elapsed >= 5000) {
-                onOutputResult(label);
+              if (elapsed >= 5000 && !hasOutputRef.current) {
+                onOutputResult(label); // <-- label mentah, misalnya "space"
+                hasOutputRef.current = true;
                 gestureStartTime.current = null;
               }
             } else {
               lastGestureRef.current = label;
               gestureStartTime.current = Date.now();
+              hasOutputRef.current = false;
             }
           }
         } catch (err) {
@@ -110,6 +113,7 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
         onNowResult("No hand");
         lastGestureRef.current = "";
         gestureStartTime.current = null;
+        hasOutputRef.current = false;
       }
 
       ctx.restore();
@@ -172,7 +176,14 @@ const VideoComponent = ({ onNowResult, onOutputResult }) => {
         />
       </div>
 
-      <div style={{ marginTop: '1rem', marginBottom: '6rem', display: 'flex', justifyContent: 'center' }}>
+      <div
+        style={{
+          marginTop: "1rem",
+          marginBottom: "6rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <input
           type="file"
           accept="video/*"
