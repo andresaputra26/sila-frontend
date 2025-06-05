@@ -13,6 +13,15 @@ function GesturePage() {
     setCurrentResult('');
   };
 
+  const handleNowResult = (result) => {
+    setCurrentResult(result);
+  };
+
+  const handleOutputResult = (label) => {
+    const outputChar = label === 'space' ? ' ' : label;
+    setTranslation((prev) => prev + outputChar);
+  };
+
   return (
     <div className="gesture-page min-vh-100">
       <div className="left-panel">
@@ -53,8 +62,8 @@ function GesturePage() {
             {isRecording && (
               <GestureComponent
                 isActive={isRecording}
-                onNowResult={(result) => setCurrentResult(result)}
-                onOutputResult={(char) => setTranslation((prev) => prev + char)}
+                onNowResult={handleNowResult}
+                onOutputResult={handleOutputResult}
               />
             )}
           </div>
