@@ -61,7 +61,6 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
   };
 
   const isOpenPalm = (landmarks) => {
-    // Jari: [baseIdx, tipIdx]
     const fingerPairs = [
       [5, 8],   // Index
       [9, 12],  // Middle
@@ -69,9 +68,9 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
       [17, 20], // Pinky
     ];
 
-    const threshold = 0.1; // minimal panjang jari agar dianggap terbuka
+    const threshold = 0.1;
 
-    return fingerPairs.every(([baseIdx, tipIdx]) => {
+    const allFingersExtended = fingerPairs.every(([baseIdx, tipIdx]) => {
       const base = landmarks[baseIdx];
       const tip = landmarks[tipIdx];
       const dist = Math.sqrt(
@@ -79,6 +78,16 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
       );
       return dist > threshold;
     });
+
+    const thumbTip = landmarks[4];
+    const palmCenter = landmarks[0];
+    const thumbDist = Math.sqrt(
+      Math.pow(thumbTip.x - palmCenter.x, 2) + Math.pow(thumbTip.y - palmCenter.y, 2)
+    );
+
+    const thumbFolded = thumbDist < 0.1;
+
+    return allFingersExtended && !thumbFolded;
   };
 
   useEffect(() => {
