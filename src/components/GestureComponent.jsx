@@ -7,7 +7,6 @@ import {
   HAND_CONNECTIONS,
 } from "@mediapipe/drawing_utils";
 
-// ✅ Ganti URL ini dengan domain backend kamu
 const API_URL = "https://sila-backend-production.up.railway.app/predict";
 
 const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
@@ -39,7 +38,6 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
 
       onNowResult(`${label} (${(confidence * 100).toFixed(2)}%)`);
 
-      // Stabilization logic
       if (label === currentLabelRef.current) {
         if (!stableStartRef.current) stableStartRef.current = now;
         const elapsed = now - stableStartRef.current;
@@ -48,7 +46,6 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
           onOutputResult(label);
           hasOutputRef.current = true;
 
-          // reset state
           stableStartRef.current = null;
           hasOutputRef.current = false;
           currentLabelRef.current = null;
@@ -61,6 +58,13 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
     } catch (err) {
       console.error("Prediction error:", err);
     }
+  };
+
+  const isOpenPalm = (landmarks) => {
+    const tips = [8, 12, 16, 20]; // index, middle, ring, pinky
+    const wristY = landmarks[0].y;
+
+    return tips.every((idx) => landmarks[idx].y < wristY);
   };
 
   useEffect(() => {
@@ -100,7 +104,31 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
           radius: 4,
         });
 
-        sendToFastAPI(flatLandmarks);
+        const now = Date.now();
+
+        if (isOpenPalm(fullLandmarks)) {
+          onNowResult("Space (manual)");
+
+          if (currentLabelRef.current === "space") {
+            if (!stableStartRef.current) stableStartRef.current = now;
+            const elapsed = now - stableStartRef.current;
+
+            if (elapsed >= 2000 && !hasOutputRef.current) {
+              onOutputResult(" ");
+              hasOutputRef.current = true;
+
+              stableStartRef.current = null;
+              hasOutputRef.current = false;
+              currentLabelRef.current = null;
+            }
+          } else {
+            currentLabelRef.current = "space";
+            stableStartRef.current = now;
+            hasOutputRef.current = false;
+          }
+        } else {
+          sendToFastAPI(flatLandmarks);
+        }
       } else {
         onNowResult("No hand");
         currentLabelRef.current = null;
