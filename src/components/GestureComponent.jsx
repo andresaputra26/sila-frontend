@@ -43,9 +43,10 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
         const elapsed = now - stableStartRef.current;
 
         if (elapsed >= 5000 && !hasOutputRef.current) {
-          onOutputResult(label);
+          onOutputResult(label); // will be "space" if gesture is space
           hasOutputRef.current = true;
 
+          // reset state
           stableStartRef.current = null;
           hasOutputRef.current = false;
           currentLabelRef.current = null;
@@ -58,36 +59,6 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
     } catch (err) {
       console.error("Prediction error:", err);
     }
-  };
-
-  const isOpenPalm = (landmarks) => {
-    const fingerPairs = [
-      [5, 8],   // Index
-      [9, 12],  // Middle
-      [13, 16], // Ring
-      [17, 20], // Pinky
-    ];
-
-    const threshold = 0.1;
-
-    const allFingersExtended = fingerPairs.every(([baseIdx, tipIdx]) => {
-      const base = landmarks[baseIdx];
-      const tip = landmarks[tipIdx];
-      const dist = Math.sqrt(
-        Math.pow(tip.x - base.x, 2) + Math.pow(tip.y - base.y, 2)
-      );
-      return dist > threshold;
-    });
-
-    const thumbTip = landmarks[4];
-    const palmCenter = landmarks[0];
-    const thumbDist = Math.sqrt(
-      Math.pow(thumbTip.x - palmCenter.x, 2) + Math.pow(thumbTip.y - palmCenter.y, 2)
-    );
-
-    const thumbFolded = thumbDist < 0.1;
-
-    return allFingersExtended && !thumbFolded;
   };
 
   useEffect(() => {
@@ -127,31 +98,7 @@ const GestureComponent = ({ isActive, onNowResult, onOutputResult }) => {
           radius: 4,
         });
 
-        const now = Date.now();
-
-        if (isOpenPalm(fullLandmarks)) {
-          onNowResult("Space (manual)");
-
-          if (currentLabelRef.current === "space") {
-            if (!stableStartRef.current) stableStartRef.current = now;
-            const elapsed = now - stableStartRef.current;
-
-            if (elapsed >= 2000 && !hasOutputRef.current) {
-              onOutputResult(" ");
-              hasOutputRef.current = true;
-
-              stableStartRef.current = null;
-              hasOutputRef.current = false;
-              currentLabelRef.current = null;
-            }
-          } else {
-            currentLabelRef.current = "space";
-            stableStartRef.current = now;
-            hasOutputRef.current = false;
-          }
-        } else {
-          sendToFastAPI(flatLandmarks);
-        }
+        sendToFastAPI(flatLandmarks);
       } else {
         onNowResult("No hand");
         currentLabelRef.current = null;
