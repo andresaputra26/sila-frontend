@@ -102,37 +102,37 @@ export const teamMembers = [
     {
         name: "Randy Cheasario Sam",
         role: "Machine Learning",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg1,
     },
     {
         name: "Akhtar Jaffan Ramadhan",
         role: "Machine Learning",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg1,
     },
     {
         name: "Andre Saputra Ginting",
         role: "Machine Learning",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg1,
     },
     {
         name: "Narendra Ghivari Putra Kusmardiyanto",
         role: "Front End & Back End",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg1,
     },
     {
         name: "Friska Apriliana Hidayati",
         role: "Front End & Back End",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg2,
     },
     {
         name: "Andre Zuliani",
         role: "Front End & Back End",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
         image: MembersImg1,
     },
 ]

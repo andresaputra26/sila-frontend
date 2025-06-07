@@ -670,10 +670,11 @@
 /* ABOUT PAGE STYLE */
 .aboutpage {
     padding-top: 120px;
+    padding-bottom: 120px;
 }
 
 .aboutpage .card {
-    margin: 25px 0 100px 0;
+    margin: 25px 0 25px 0;
 }
 
 .aboutpage h3 {
