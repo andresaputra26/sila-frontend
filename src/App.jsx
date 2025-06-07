@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import GesturePage from './pages/GesturePage';
 import VideoPage from './pages/VideoPage';
 import AboutPage from './pages/AboutPage';
+import AlphabetPage from './pages/AlphabetPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/gesture' Component={GesturePage} />
         <Route path='/video' Component={VideoPage} />
         <Route path='/about' Component={AboutPage} />
+        <Route path='/alphabet' Component={AlphabetPage} />
       </Routes>
 
       <FooterComponent />
