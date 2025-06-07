@@ -36,6 +36,7 @@ import AlphabetW from '../assets/images/alphabet/W.png';
 import AlphabetX from '../assets/images/alphabet/X.png';
 import AlphabetY from '../assets/images/alphabet/Y.png';
 import AlphabetZ from '../assets/images/alphabet/Z.png';
+import space from '../assets/images/alphabet/space.png';
 
 export const navLinks = [
     {
@@ -334,5 +335,10 @@ export const alphabetSIBI = [
         id: 26,
         image: AlphabetZ,
         title: "Z z"
+    },
+    {
+        id: 27,
+        image: space,
+        title: "space"
     }
 ];
