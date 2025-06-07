@@ -124,16 +124,16 @@ export const teamMembers = [
         image: MembersImg1,
     },
     {
-        name: "Andre Zuliani",
-        role: "Front End & Back End",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
-        image: MembersImg1,
-    },
-    {
         name: "Friska Apriliana Hidayati",
         role: "Front End & Back End",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
         image: MembersImg2,
+    },
+    {
+        name: "Andre Zuliani",
+        role: "Front End & Back End",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam architecto voluptate adipisci aspernatur in deserunt?",
+        image: MembersImg1,
     },
 ]
 
