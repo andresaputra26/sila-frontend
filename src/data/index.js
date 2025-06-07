@@ -46,24 +46,25 @@ export const navLinks = [
     },
     {
         id: 2,
-        path: "gesture",
-        text: "Gesture Translator",
-    },
-    {
-        id: 3,
-        path: "video",
-        text: "Video Translator",
-    },
-    {
-        id: 4,
         path: "about",
         text: "About",
     },
     {
-        id: 5,
+        id: 3,
         path: "alphabet",
         text: "SIBI Alphabet"
     },
+    {
+        id: 4,
+        path: "gesture",
+        text: "Gesture Translator",
+    },
+    {
+        id: 5,
+        path: "video",
+        text: "Video Translator",
+    },
+    
 ];
 
 export const premiumFeatures = [
