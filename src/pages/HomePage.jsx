@@ -17,6 +17,10 @@ const HomePage = () => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [testiSwiper, setTestiSwiper] = useState(() => {
+    const stored = localStorage.getItem('testiSwiper');
+    return stored ? JSON.parse(stored) : dataSwiper;
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +28,24 @@ const HomePage = () => {
 
     try {
       await submitFeedback({ feedback, rating });
+      
+      const newFeedback = {
+        id: Date.now(),
+        desc: feedback,
+        image: `https://ui-avatars.com/api/?name=User${Math.floor(Math.random() * 1000)}&background=random`,
+        name: `User ${Math.floor(1000 + Math.random() * 9000)}`, // generate otomatis
+        ...[1, 2, 3, 4, 5].reduce((acc, i) => ({
+          ...acc,
+          [`star${i}`]: i <= rating ? "fa-solid fa-star" : "fa-regular fa-star"
+        }), {}),
+      };
+
+      setTestiSwiper(prev => {
+        const updated = [newFeedback, ...prev];
+        localStorage.setItem('testiSwiper', JSON.stringify(updated));
+        return updated;
+      });
+
       e.target.reset();
       setRating(0);
       setShowModal(true);
@@ -121,7 +143,7 @@ const HomePage = () => {
               modules={[Pagination]}
               className="mySwiper"
             >
-              {dataSwiper.map((data) => (
+              {testiSwiper.map((data) => (
                 <SwiperSlide key={data.id} className='shadow-sm'>
                   <p className='desc'>{data.desc}</p>
                   <div className='people'>
