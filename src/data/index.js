@@ -6,9 +6,7 @@ import FeatureImage4 from '../assets/images/features/lightning-svgrepo-com.svg';
 import MembersImg1 from '../assets/images/members/man-avatar-icon.jpg';
 import MembersImg2 from '../assets/images/members/female-avatar-icon.jpg';
 
-import People1 from '../assets/images/testimonial/people-1.jpg';
-import People2 from '../assets/images/testimonial/people-2.jpg';
-import People3 from '../assets/images/testimonial/people-3.jpg';
+import UserAva from '../assets/images/testimonial/UserAvatar.jpg';
 
 import AlphabetA from '../assets/images/alphabet/A.png';
 import AlphabetB from '../assets/images/alphabet/B.png';
@@ -141,7 +139,7 @@ export const dataSwiper = [
     {
         id: 1,
         desc: "SiLa benar-benar membantu saya memahami teman saya yang menggunakan bahasa isyarat. Fitur kamera langsungnya sangat praktis!",
-        image: People1,
+        image: UserAva,
         name: "User 1023",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",
@@ -152,7 +150,7 @@ export const dataSwiper = [
     {
         id: 2,
         desc: "Saya upload video bahasa isyarat dan langsung muncul teksnya. Cepat dan akurat. Ini sangat membantu pekerjaan saya sebagai guru!",
-        image: People2,
+        image: UserAva,
         name: "User 1678",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",
@@ -163,7 +161,7 @@ export const dataSwiper = [
     {
         id: 3,
         desc: "Fitur penerjemahan gerakan tangan real-time dari kamera sangat inovatif. Saya bisa lebih mudah berkomunikasi dengan teman tuli.",
-        image: People3,
+        image: UserAva,
         name: "User 3049",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",
@@ -174,7 +172,7 @@ export const dataSwiper = [
     {
         id: 4,
         desc: "SiLa membuat dunia lebih inklusif. Teknologinya memudahkan saya berinteraksi tanpa batas bahasa isyarat.",
-        image: People1,
+        image: UserAva,
         name: "User 4820",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",
@@ -185,7 +183,7 @@ export const dataSwiper = [
     {
         id: 5,
         desc: "Sebagai penerjemah bahasa isyarat, aplikasi ini sangat membantu dalam mengkonversi video ke teks secara cepat dan efisien.",
-        image: People2,
+        image: UserAva,
         name: "User 5932",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",
@@ -196,7 +194,7 @@ export const dataSwiper = [
     {
         id: 6,
         desc: "Teknologi seperti ini sangat dibutuhkan! Akhirnya ada alat yang benar-benar paham bahasa isyarat dengan baik.",
-        image: People3,
+        image: UserAva,
         name: "User 6891",
         star1: "fa-solid fa-star",
         star2: "fa-solid fa-star",

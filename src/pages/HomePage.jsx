@@ -33,7 +33,7 @@ const HomePage = () => {
         id: Date.now(),
         desc: feedback,
         image: `https://ui-avatars.com/api/?name=User${Math.floor(Math.random() * 1000)}&background=random`,
-        name: `User ${Math.floor(1000 + Math.random() * 9000)}`, // generate otomatis
+        name: `User ${Math.floor(1000 + Math.random() * 9000)}`,
         ...[1, 2, 3, 4, 5].reduce((acc, i) => ({
           ...acc,
           [`star${i}`]: i <= rating ? "fa-solid fa-star" : "fa-regular fa-star"
