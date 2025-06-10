@@ -3,10 +3,14 @@ import FeatureImage2 from '../assets/images/features/video-svgrepo-com.svg';
 import FeatureImage3 from '../assets/images/features/guide-svgrepo-com.svg';
 import FeatureImage4 from '../assets/images/features/lightning-svgrepo-com.svg';
 
-import MembersImg1 from '../assets/images/members/man-avatar-icon.jpg';
-import MembersImg2 from '../assets/images/members/female-avatar-icon.jpg';
+import MembersImg1 from '../assets/images/members/member-1.jpeg';
+import MembersImg2 from '../assets/images/members/member-2.jpeg';
+import MembersImg3 from '../assets/images/members/member-3.jpeg';
+import MembersImg4 from '../assets/images/members/member-4.jpeg';
+import MembersImg5 from '../assets/images/members/member-5.png';
+import MembersImg6 from '../assets/images/members/member-6.png';
 
-import UserAva from '../assets/images/testimonial/UserAvatar.jpg';
+import UserAva from '../assets/images/testimonial/user-avatar.jpeg';
 
 import AlphabetA from '../assets/images/alphabet/A.png';
 import AlphabetB from '../assets/images/alphabet/B.png';
@@ -107,31 +111,31 @@ export const teamMembers = [
         name: "Akhtar Jaffan Ramadhan",
         role: "Machine Learning",
         description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
-        image: MembersImg1,
+        image: MembersImg2,
     },
     {
         name: "Andre Saputra Ginting",
         role: "Machine Learning",
         description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
-        image: MembersImg1,
+        image: MembersImg3,
     },
     {
         name: "Narendra Ghivari Putra Kusmardiyanto",
         role: "Front End & Back End",
         description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
-        image: MembersImg1,
+        image: MembersImg4,
     },
     {
         name: "Friska Apriliana Hidayati",
         role: "Front End & Back End",
         description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
-        image: MembersImg2,
+        image: MembersImg5,
     },
     {
         name: "Andre Zuliani",
         role: "Front End & Back End",
         description: "Member of the development team working on a web-based learning system for sign language using modern web and AI technologies.",
-        image: MembersImg1,
+        image: MembersImg6,
     },
 ]
 
